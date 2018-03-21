@@ -5,14 +5,20 @@ import { registerUser } from '../actions/auth';
 import { setFlash } from '../actions/flash';
 
 class Register extends Component {
-  state = { email: '', password: '', passwordConfirmation: '' };
+  state = { name: '', gamertag: '', email: '', password: '', passwordConfirmation: '' };
 
   handleSubmit = event => {
     event.preventDefault();
-    const { email, password, passwordConfirmation } = this.state;
+    const { 
+      name,
+      gamertag, 
+      email, 
+      password, 
+      passwordConfirmation 
+    } = this.state;
     const { dispatch, history } = this.props;
     if (password === passwordConfirmation) {
-      dispatch(registerUser(email, password, passwordConfirmation, history));
+      dispatch(registerUser(name, gamertag, email, password, passwordConfirmation, history));
     } else dispatch(setFlash('Passwords do not match!, please try again', 'red'));
   }
 
@@ -25,12 +31,31 @@ class Register extends Component {
   }
 
   render() {
-    const { email, password, passwordConfirmation } = this.state;
+    const { name, gamertag, email, password, passwordConfirmation } = this.state;
 
     return (
       <Segment basic>
         <Header as='h1' textAlign='center'>Register Component</Header>
         <Form onSubmit={this.handleSubmit}>
+          <Form.Field>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              placeholder="Name"
+              required
+              value={name}
+              onChange={this.handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label htmlFor="gamertag">Gamertag</label>
+            <input
+              id="gamertag"
+              placeholder="Gamertag"
+              value={gamertag}
+              onChange={this.handleChange}
+            />
+          </Form.Field>
           <Form.Field>
             <label htmlFor='email'>Email</label>
             <input
