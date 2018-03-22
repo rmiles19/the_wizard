@@ -4,6 +4,8 @@ const tags = ( state = [], action ) => {
       return action.tags
     case 'ADD_TAG':
       return [...state, action.tag]
+    case 'DELETE_TAG':
+      return state.filter( t => t.id !== action.id )
     default: 
       return state;
   }
